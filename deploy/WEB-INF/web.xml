@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE web-app
+PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+"http://java.sun.com/j2ee/dtds/web-app_2_3.dtd">
+
+<web-app>
+
+  <servlet>
+    <servlet-class>StudentServlet</servlet-class>
+    <servlet-name>student</servlet-name>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>student</servlet-name>
+    <url-pattern>/StudentServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-class>AdminServlet</servlet-class>
+    <servlet-name>admin</servlet-name>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>admin</servlet-name>
+    <url-pattern>/AdminServlet</url-pattern>
+  </servlet-mapping>
+
+</web-app>
