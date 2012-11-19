@@ -25,20 +25,21 @@ import java.text.DecimalFormat;
   *  @author John Reed
   */
 public class StudentServlet extends HttpServlet {
-
     static final long serialVersionUID = 62L;
+
+    DecimalFormat df = new DecimalFormat( "0.00" );
+
+
+  public void doGet(HttpServletRequest request, HttpServletResponse response)
+    throws IOException, ServletException {
 
     HttpSession session;  
     Animal animal;
-    HashMap state = new HashMap(); // why doesn't this work as an instance variable??
-    DecimalFormat df = new DecimalFormat( "0.00" );
+    //HashMap state = new HashMap(); // why doesn't this work as an instance variable??
     String runMode; 
     String mode; 
     ArrayList analysis;
     HashMap outputData;
-
-  public void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws IOException, ServletException {
 
     response.setContentType("text/html");
 
@@ -75,7 +76,7 @@ public class StudentServlet extends HttpServlet {
       session.setAttribute( "ANIMAL", AnimalFactory.getAnimalByCopy( name ) );
       animal = (Animal)session.getAttribute( "ANIMAL" );
       out.println("<INPUT TYPE=\"hidden\" NAME=\"mode\"  VALUE=\"running\">");
-      printDescription( out );
+      printDescription( out, animal );
       printSetupTable( out );
       printFooter( out );
     }
@@ -130,24 +131,24 @@ public class StudentServlet extends HttpServlet {
 
         animal.run( state );     
 
-        printDescription( out );
+        printDescription( out, animal );
 
         outputData = animal.getOutputData();
 
-        printCurrentSampleData( out );
+        printCurrentSampleData( out, outputData );
 
-        printSetupTable( out, state );
+        printSetupTable( out, state, runMode, analysis );
 
         printFooter( out );
 
-        printOutputData( out );
+        printOutputData( out, outputData );
 
       }
       else {
 
-        printDescription( out );
+        printDescription( out, animal );
 
-        printSetupTable( out, state );
+        printSetupTable( out, state, runMode, analysis );
 
         printFooter( out );
 
@@ -183,7 +184,7 @@ public class StudentServlet extends HttpServlet {
       out.println("<FORM ACTION=\"/model/StudentServlet\">");
   }
 
-  public void printDescription( PrintWriter out ){
+  public void printDescription( PrintWriter out, Animal animal ){
       out.println("Animal: "     + animal.getName() );
       out.println("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
       //      out.println("Experiment: " + animal.getDescription() );
@@ -214,7 +215,7 @@ public class StudentServlet extends HttpServlet {
    * This takes the data returned from Animal and
    * displays it to the student.
    */
-  public void printOutputData( PrintWriter out ){
+  public void printOutputData( PrintWriter out, HashMap outputData ){
     ArrayList time;
     HashMap gl;
     HashMap gg;
@@ -307,7 +308,7 @@ public class StudentServlet extends HttpServlet {
    * way a user doesn't have to look at a very large,
    * growing speadsheet of data.
    */
-  public void printCurrentSampleData( PrintWriter out ){
+  public void printCurrentSampleData( PrintWriter out, HashMap outputData ){
     ArrayList time;
     HashMap gl;
     HashMap gg; 
@@ -495,7 +496,7 @@ public class StudentServlet extends HttpServlet {
       out.println("");
 
   }
-  public void printSetupTable( PrintWriter out, HashMap state ){
+  public void printSetupTable( PrintWriter out, HashMap state, String runMode, ArrayList analysis ){
   
       out.println("<BR>");
       out.println("Infusion Setup Table(specify infusion conditions in related box):");
