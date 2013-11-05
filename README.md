@@ -1,17 +1,13 @@
-NAME:  BOVINE METABOLISM SIMULATION
-===================================
-
+BOVINE METABOLISM SIMULATION
+============================
 VERSION:  1.1
--------------
 
 DESCRIPTION:
 ------------
 A web based application that simulates bovine metabolism of glucose,
 insulin, glucagon, and radio-active glucose.
 
-DATE:
------
-08.16.01
+DATE: 08.16.01
 
 
 NOTES:
